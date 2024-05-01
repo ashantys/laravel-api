@@ -39,7 +39,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'author' => 'required|max:255',
+            'body' => 'required',
+            'classification' => 'required|max:255',
+        ]);
+
+        $post = Post::create($validatedData);
     }
 
     /**
@@ -48,9 +55,10 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        return new PostResource($post);
     }
 
     /**
@@ -59,9 +67,10 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        return new PostResource($post);
     }
 
     /**
@@ -71,11 +80,21 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id)
     {
-        $post->update($request->validated());
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'author' => 'required|max:255',
+            'body' => 'required',
+            'classification' => 'required|max:255',
+        ]);
+
+        $post = Post::findOrFail($id);
+        $post->update($validatedData);
+
         return new PostResource($post);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -85,7 +104,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $post->delete();
-        return response(null, 204);
+        $post->delete('Succesfully Deleted');
+        return response()->json(['message' => 'Succesfully Deleted'], 204);;
     }
 }
