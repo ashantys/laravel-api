@@ -58,6 +58,15 @@ class AuthController extends Controller
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse($token->expires_at)->toDateTimeString()
         ]);
+    }
+//Logout method
 
+    public function logout(Request $request)
+    {
+        $request->user()-toekn()->revoke();
+
+        return response()->json([
+            'mesagge' => 'Successfully Logged Out'
+        ]);
     }
 }
