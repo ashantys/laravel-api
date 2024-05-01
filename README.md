@@ -21,4 +21,4 @@ Esta aplicación es una **API** que permite a los usuarios realizar operaciones 
 3. **Persistencia de Datos**: La aplicación almacena las notas en una base de datos o en algún otro sistema de almacenamiento persistente.
 
 ## Diagrama ER
-!https://github.com/ashantys/laravel-api/blob/master/ERACT14.jpeg
+https://github.com/ashantys/laravel-api/blob/master/ERACT14.jpeg
